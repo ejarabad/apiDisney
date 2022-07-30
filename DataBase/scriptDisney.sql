@@ -1,0 +1,43 @@
+-- MySQL Workbench Forward Engineering
+
+CREATE SCHEMA IF NOT EXISTS disneyDB DEFAULT CHARACTER SET utf8 ;
+USE disneyDB ;
+
+CREATE TABLE IF NOT EXISTS Personaje (
+  id INT NOT NULL AUTO_INCREMENT,
+  imagen VARCHAR(100) NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  edad INT NOT NULL,
+  peso INT NOT NULL,
+  historia TEXT NOT NULL,
+  PRIMARY KEY (id))
+  ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS Genero (
+  id INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(100) NOT NULL,
+  Imagen VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id))
+  ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS Pelicula (
+  id INT NOT NULL AUTO_INCREMENT,
+  imagen VARCHAR(100) NOT NULL,
+  Titulo VARCHAR(100) NOT NULL,
+  Fecha_de_creacion DATE NOT NULL,
+  Genero_id INT NOT NULL,
+  PRIMARY KEY (id),
+    FOREIGN KEY (Genero_id) REFERENCES Genero (id))
+ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE IF NOT EXISTS Personaje_pelicula (
+  id INT NOT NULL AUTO_INCREMENT,
+  idPersonaje INT NOT NULL,
+  idPelicula INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_personaje
+    FOREIGN KEY (idPersonaje) REFERENCES Personaje (id),
+    FOREIGN KEY (idPelicula) REFERENCES Pelicula (id))
+ENGINE InnoDB DEFAULT CHARSET=utf8mb4;
+
